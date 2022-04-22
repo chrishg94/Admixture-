@@ -1,0 +1,23 @@
+#!/bin/bash
+
+#SBATCH --nodes=1
+#SBATCH --mem=64000
+#SBATCH --job-name=admixture-K6
+#SBATCH --partition=medium
+
+
+module purge
+# load admixture package
+module load ADMIXTURE/1.3.0
+
+OUTPUT="/data/wildcru/kebl7066/ADMIXTURE-out"
+BED_FILE="/data/wildcru/kebl7066/PLINK-Bed/MergedSCLs.bed"
+
+cd ${OUTPUT}
+
+for K in {6..9}
+do
+admixture --cv ${BED_FILE} $K 
+done
+
+
